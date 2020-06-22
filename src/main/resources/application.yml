@@ -1,0 +1,5 @@
+spring:
+  redis:
+    host: 47.98.163.117
+server:
+  port: 9090
