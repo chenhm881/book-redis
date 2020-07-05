@@ -2,13 +2,22 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heiio.bookredis.mapper.ProductMapper">
+<mapper namespace="com.heiio.bookredis.mapper.ArticleMapper">
     <!-- 开启基于redis的二级缓存 -->
-    <cache type="com.heiio.bookredis.RedisCache"/>
-    <select id="select" resultType="Product">
-        SELECT * FROM products WHERE id = #{id} LIMIT 1
+    <cache type="com.heiio.bookredis.config.RedisCache"/>
+
+    <select id="select" resultType="Article" parameterType="Integer">
+        SELECT * FROM article WHERE id = #{id} LIMIT 1
     </select>
-    <update id="update" parameterType="Product" flushCache="true">
-        UPDATE products SET name = #{name}, price = #{price} WHERE id = #{id} LIMIT 1
+    <insert id="insert" useGeneratedKeys="true" parameterType="Article">
+        INSERT INTO article (title, author) VALUES (#{title}, #{author})
+    </insert>
+    <update id="update" parameterType="Article" flushCache="true">
+        UPDATE article SET title = #{title}, author = #{author} WHERE id = #{id} LIMIT 1
     </update>
-</mapper>
+
+    <select id="findById" resultType="Article" parameterType="Integer" useCache="false">
+        SELECT * FROM article WHERE id = #{id}
+    </select>
+
+</mapper
