@@ -10,4 +10,5 @@ import java.util.List;
 @Mapper
 public interface BlogMapper {
     List<Blog> findBlogList();
+    void find();
 }

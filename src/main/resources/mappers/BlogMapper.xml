@@ -7,7 +7,11 @@
     <cache type="com.heiio.bookredis.config.RedisCache"/>
 
     <select id="findBlogList" resultType="Blog">
-        SELECT * FROM t_blog ORDER BY ID DESC LIMIT 0, 2
+        SELECT * FROM employee ORDER BY ID DESC LIMIT 0, 2
+    </select>
+
+    <select id="find">
+        SELECT * FROM employee ORDER BY ID DESC LIMIT 0, 2
     </select>
 
 </mapper>

@@ -9,8 +9,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,12 +56,22 @@ public class HelloController {
             return blog;
        }).collect(Collectors.toList());
        ResponseEntity<List<Blog>> responseEntity = new ResponseEntity<>(blogList, HttpStatus.OK);
-        return responseEntity;
+       return responseEntity;
     }
 
-    @PostMapping("/createBlog")
-    public String create(@RequestBody Blog blog) {
-        return blogService.create(blog);
-    }
+//    @PostMapping("/createBlog")
+//    public String create(@RequestBody Blog blog) {
+//        return blogService.create(blog);
+//    }
 
+
+    @RequestMapping("/redis")
+    public String getBlog() {
+        try {
+            blogService.find();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
 }

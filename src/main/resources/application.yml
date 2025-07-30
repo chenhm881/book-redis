@@ -3,14 +3,16 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.98.163.117:3306/ming_blog
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://47.98.163.117:3306/ming_blog
+    url: jdbc:mysql://localhost:3306/heiio?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: root
     password: 123456
   main:
     allow-bean-definition-overriding: true
   redis:
-    host: 47.98.163.117
+    # host: 47.98.163.117
+    host: localhost
 
 mybatis:
   config-location:  classpath:mybatis-config.xml

@@ -2,12 +2,12 @@ package com.heiio.bookredis.service;
 
 import com.heiio.bookredis.mapper.BlogMapper;
 import com.heiio.bookredis.model.blog.Blog;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ public class BlogService {
     private String createBlogEndpoint;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private BlogMapper blogMapper;
 
     @Autowired
-    private BlogMapper blogMapper;
+    private RedissonClient redissonClient;
 
     @Cacheable(cacheNames = {"blog"})
     public List<Blog> getBlogList() {
@@ -30,7 +30,8 @@ public class BlogService {
         return blogMapper.findBlogList();
     }
 
-    public String create(Blog blog) {
-        return restTemplate.postForObject(createBlogEndpoint, blog, String.class);
+    @Cacheable(cacheNames = {"blog"})
+    public void find() throws InterruptedException {
+        blogMapper.find();
     }
 }

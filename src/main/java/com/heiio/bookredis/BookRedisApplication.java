@@ -8,11 +8,8 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class BookRedisApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(BookRedisApplication.class, args);
-
-
     }
 
 }
